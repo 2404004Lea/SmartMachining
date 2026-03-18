@@ -1,0 +1,16 @@
+[
+    {
+        "titulo": "ee",
+        "descripcion": "eeee",
+        "categoria": "Tornos",
+        "imagen": "..\/uploads\/1771228957_Website Design.jpg",
+        "modelo": "..\/uploads\/1771228957_Engranaje.stl"
+    },
+    {
+        "titulo": "engranaje",
+        "descripcion": "entorque en manofactura",
+        "categoria": "Tornos",
+        "imagen": "..\/uploads\/1771265378_catalogo.jpg",
+        "modelo": "..\/uploads\/1771265378_1771228957_Engranaje (2).stl"
+    }
+]
