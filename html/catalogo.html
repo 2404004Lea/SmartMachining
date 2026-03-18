@@ -1,0 +1,564 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Maching —  Catálogo  </title>
+     <link rel="icon" type="image/png" href="LOGO1SM.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="stylesheet" href="../style/herramientas.css"/>    
+</head>
+<body>
+
+<nav>
+    <div class="logo">SmartMachining</div>
+
+    <ul id="mainNav">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="catalogo.html">Herramientas</a></li>
+        <li><a href="ia.html">Chatbot IA</a></li>
+        <li><a href="ra.html">Realidad Aumentada</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" style="display:none">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-label">▸ CATÁLOGO TÉCNICO PROFESIONAL</div>
+    <h1>HERRAMIENTAS<br><span>DE ALTO</span><br>RENDIMIENTO</h1>
+    <p>Equipamiento técnico especializado para profesionales de la mecánica industrial y automotriz.</p>
+    <a href="#catalogo" class="btn-primary">EXPLORAR HERRAMIENTAS →</a>
+  </div>
+  <div class="hero-preview" id="heroPreview">
+    <div class="card-loader" id="heroLoader">CARGANDO MODELO...</div>
+    <div class="hero-preview-info">
+      <div class="hero-preview-cat" id="heroCat"></div>
+      <div class="hero-preview-name" id="heroName"></div>
+      <div class="hero-preview-hint">CLIC PARA VER EN 3D</div>
+    </div>
+    <div class="hero-corner" id="heroCorner"></div>
+  </div>
+</section>
+
+<div class="section-wrap" id="featuredSection">
+  <div class="section-head">
+    <div class="section-bar" style="background:rgba(255,255,255,0.3)"></div>
+    <h2>HERRAMIENTAS DESTACADAS</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" id="featuredGrid"></div>
+</div>
+
+<div class="section-wrap" id="catalogo">
+  <div class="section-head">
+    <div class="section-bar" style="background:rgba(255,255,255,0.3)"></div>
+    <h2>CATÁLOGO COMPLETO</h2>
+    <div class="section-line"></div>
+    <div class="section-count" id="catalogCount"></div>
+  </div>
+  <div class="filters">
+    <div class="filters-cats" id="catButtons"></div>
+    <div class="search-box">
+      <span style="color:var(--dim)">⌕</span>
+      <input type="text" id="searchInput" placeholder="Buscar herramienta..."/>
+    </div>
+  </div>
+  <div class="cards-grid" id="catalogGrid">
+    <div class="empty-state" id="loadingState">CARGANDO HERRAMIENTAS...</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-3d" id="modal3d">
+      <div class="modal-loader" id="modalLoader">CARGANDO MODELO...</div>
+      <div class="modal-drag-hint">ARRASTRAR · SCROLL PARA ZOOM</div>
+      <div class="modal-corner-h" id="modalCornerH"></div>
+      <div class="modal-corner-v" id="modalCornerV"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-close-row">
+        <button class="modal-close" id="modalCloseBtn">×</button>
+      </div>
+      <div>
+        <span class="modal-cat-badge" id="modalCat"></span>
+        <div class="modal-name" id="modalName"></div>
+      </div>
+      <div class="modal-divider">
+        <div id="modalDivBar" style="height:3px;border-radius:2px;"></div>
+        <div style="width:8px;height:3px;background:#2a2f38;border-radius:2px;"></div>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-specs">
+        <div class="modal-specs-title">FICHA TÉCNICA</div>
+        <div class="modal-specs-grid" id="modalSpecs"></div>
+      </div>
+      <div class="modal-status">
+        <div class="dot-green"></div>
+        <span>HERRAMIENTA REGISTRADA</span>
+      </div>
+      <a class="modal-download" id="modalDownloadBtn" href="#" download>
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        DESCARGAR MODELO 3D (.GLB)
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col logo-col">
+            <h2>SMART MACHINING</h2>
+            <p>Transformamos la producción con tecnología de vanguardia. Desde herramientas inteligentes hasta realidad aumentada, llevamos el mecanizado al futuro.</p>
+        </div>
+        <div class="footer-col">
+           <h3>Enlaces Rápidos</h3>
+            <ul>
+                <li><a href="herramientas.html">Catálogo</a></li>
+                <li><a href="ia.html">Asistencia IA</a></li>
+                <li><a href="realidad.html">Realidad Aumentada</a></li>
+            </ul>
+        </div>
+    </div>
+      <div class="footer-bottom">© 2026 Smart Machining. Todos los derechos reservados.</div>
+</footer>
+<script>
+const navLinks = document.querySelectorAll('nav ul li a');
+
+navLinks.forEach(link => {
+  const linkPath = link.getAttribute('href');
+  const currentPath = window.location.pathname;
+
+  // Coincidencia exacta o por nombre de archivo
+  if (
+    currentPath.endsWith(linkPath) ||
+    (linkPath === 'index.html' && (currentPath === '/' || currentPath.endsWith('/index.html')))
+  ) {
+    link.classList.add('active');
+  }
+});
+</script>
+<style>
+    nav ul li a.active {
+  opacity: 1;
+  position: relative;
+}
+
+nav ul li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: white;
+  border-radius: 2px;
+}
+</style>
+<script>
+
+const MODELS_BASE = 'https://2404004Lea.github.io/SmartMachinglogin/models';
+const CATEGORIES  = ['Todos','Medición','Sujeción','Neumática','Diagnóstico','Corte','Otra'];
+
+let tools          = [];
+let activeCategory = 'Todos';
+let searchTerm     = '';
+let heroToolId     = null;
+
+const IS_MOBILE = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)
+               || window.innerWidth < 768;
+
+const WEBGL_OK = (() => {
+  try {
+    const cv = document.createElement('canvas');
+    return !!(cv.getContext('webgl') || cv.getContext('experimental-webgl'));
+  } catch(e) { return false; }
+})();
+
+const PLACEHOLDER_SVG = `
+  <svg viewBox="0 0 24 24" fill="none" stroke="#7eb8d4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+    <line x1="12" y1="22.08" x2="12" y2="12"/>
+  </svg>`;
+
+function showPlaceholder(container) {
+  const loader = container.querySelector('.card-loader');
+  if (loader) loader.style.display = 'none';
+  // Limpiar lo que haya
+  const old = container.querySelector('canvas,.card-placeholder');
+  if (old) old.remove();
+  container.insertAdjacentHTML('beforeend',
+    `<div class="card-placeholder">${PLACEHOLDER_SVG}<span>MODELO 3D</span></div>`);
+}
+
+
+const modelCache = new Map();
+
+function loadModel(modelPath, onProgress) {
+  if (modelCache.has(modelPath)) return Promise.resolve(modelCache.get(modelPath));
+  return new Promise((resolve, reject) => {
+    new THREE.GLTFLoader().load(
+      modelPath,
+      gltf => { modelCache.set(modelPath, gltf); resolve(gltf); },
+      onProgress || null,
+      reject
+    );
+  });
+}
+
+function prepareModel(gltf, withShadows) {
+  const model  = gltf.scene.clone();
+  const bbox   = new THREE.Box3().setFromObject(model);
+  const center = bbox.getCenter(new THREE.Vector3());
+  const size   = bbox.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const scale  = maxDim > 0 ? 2.5 / maxDim : 1;
+  model.scale.setScalar(scale);
+  model.position.sub(center.multiplyScalar(scale));
+  model.traverse(c => {
+    if (c.isMesh) {
+      c.castShadow = c.receiveShadow = withShadows;
+      const mats = Array.isArray(c.material) ? c.material : [c.material];
+      mats.forEach(m => {
+        if (m.isMeshStandardMaterial || m.isMeshPhysicalMaterial) {
+          m.roughness = Math.min(m.roughness, 0.45);
+          m.metalness = Math.max(m.metalness, 0.25);
+          m.envMapIntensity = 1.2;
+        }
+      });
+    }
+  });
+  return model;
+}
+
+
+const SHARED_BG = (() => {
+  const cv = document.createElement('canvas'); cv.width = 2; cv.height = 512;
+  const cx = cv.getContext('2d');
+  const gr = cx.createLinearGradient(0,0,0,512);
+  gr.addColorStop(0,'#ffffff'); gr.addColorStop(.5,'#ffffff'); gr.addColorStop(1,'#ffffff');
+  cx.fillStyle = gr; cx.fillRect(0,0,2,512);
+  return new THREE.CanvasTexture(cv);
+})();
+
+
+const snapshotQueue = [];
+let snapshotRunning = false;
+
+function queueSnapshot(container, modelPath) {
+
+  if (!WEBGL_OK) {
+    showPlaceholder(container);
+    return;
+  }
+  snapshotQueue.push({ container, modelPath });
+  if (!snapshotRunning) processNextSnapshot();
+}
+
+function processNextSnapshot() {
+  if (!snapshotQueue.length) { snapshotRunning = false; return; }
+  snapshotRunning = true;
+  const { container, modelPath } = snapshotQueue.shift();
+  if (container.dataset.done === '1') { processNextSnapshot(); return; }
+
+  const loader = container.querySelector('.card-loader');
+  const w = Math.min(container.offsetWidth  || 280, 400);
+  const h = Math.min(container.offsetHeight || 180, 280);
+
+  loadModel(modelPath, xhr => {
+    if (loader && xhr.total) loader.textContent = Math.round(xhr.loaded / xhr.total * 100) + '%';
+  }).then(gltf => {
+
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: false,
+        powerPreference: 'high-performance',
+        preserveDrawingBuffer: true,
+        failIfMajorPerformanceCaveat: false
+      });
+      renderer.setPixelRatio(1);
+      renderer.setSize(w, h);
+      renderer.outputEncoding      = THREE.sRGBEncoding;
+      renderer.toneMapping         = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.3;
+      renderer.shadowMap.enabled   = false;
+
+      const scene  = new THREE.Scene();
+      scene.background = SHARED_BG;
+      const camera = new THREE.PerspectiveCamera(45, w/h, 0.01, 1000);
+      camera.position.set(3, 2, 4); camera.lookAt(0,0,0);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 1.8));
+      const sun = new THREE.DirectionalLight(0xfff0e0, 2.5);
+      sun.position.set(5, 8, 5); scene.add(sun);
+
+      const grid = new THREE.GridHelper(12, 24, 0x1e3048, 0x111e2a);
+      grid.material.opacity = .5; grid.material.transparent = true;
+      grid.position.y = -1.2; scene.add(grid);
+
+      scene.add(prepareModel(gltf, false));
+      renderer.render(scene, camera);
+
+      let dataURL;
+      try { dataURL = renderer.domElement.toDataURL('image/webp', 0.82); }
+      catch(e) { dataURL = renderer.domElement.toDataURL('image/png'); }
+
+      renderer.dispose(); 
+
+      if (loader) loader.style.display = 'none';
+      container.dataset.done = '1';
+      const img = document.createElement('img');
+      img.src = dataURL;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;';
+      container.appendChild(img);
+
+    } catch(e) {
+      if (renderer) try { renderer.dispose(); } catch(_) {}
+      showPlaceholder(container);
+    }
+
+  }).catch(() => {
+    showPlaceholder(container);
+  }).finally(() => {
+
+    setTimeout(processNextSnapshot, IS_MOBILE ? 300 : 80);
+  });
+}
+
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    if (el.dataset.queued === '1') return;
+    el.dataset.queued = '1';
+    cardObserver.unobserve(el);
+    queueSnapshot(el, el.dataset.modelPath);
+  });
+}, { rootMargin: '300px', threshold: 0 });
+
+
+function renderHero() {
+  const tool = tools.find(t => t.featured) || tools[0];
+  if (!tool) return;
+  heroToolId = tool.id;
+  document.getElementById('heroCat').style.color         = 'var(--accent)';
+  document.getElementById('heroName').textContent        = tool.name;
+  document.getElementById('heroCorner').style.background = tool.color;
+  const box = document.getElementById('heroPreview');
+  box.onclick = () => openModal(heroToolId);
+  queueSnapshot(box, tool.modelPath);
+}
+
+function makeCard(tool) {
+  const div = document.createElement('div');
+  div.className = 'tool-card' + (tool.featured ? ' featured' : '');
+  if (tool.featured) div.style.borderTopColor = 'rgba(255,255,255,0.3)';
+  div.innerHTML = `
+    <div class="card-3d" id="c3d_${tool.id}" data-model-path="${tool.modelPath}">
+      <div class="card-loader">CARGANDO...</div>
+    </div>
+    <div class="card-info">
+      <div class="card-cat" style="color:var(--accent)">${tool.category}</div>
+      <div class="card-name">${tool.name}</div>
+      <div class="card-footer">
+        <div class="badge3d"><div class="dot-green"></div><span>MODELO 3D</span></div>
+        <div class="card-arrow">VER →</div>
+      </div>
+    </div>`;
+  div.addEventListener('click', () => openModal(tool.id));
+  return div;
+}
+
+function renderFeatured() {
+  const grid    = document.getElementById('featuredGrid');
+  const section = document.getElementById('featuredSection');
+  const list    = tools.filter(t => t.featured);
+  if (!list.length) { section.style.display = 'none'; return; }
+  section.style.display = ''; grid.innerHTML = '';
+  list.forEach(t => { grid.appendChild(makeCard(t)); cardObserver.observe(document.getElementById('c3d_'+t.id)); });
+}
+
+function renderCatalog() {
+  const grid = document.getElementById('catalogGrid');
+  grid.innerHTML = '';
+  const list = tools.filter(t => {
+    const mc = activeCategory === 'Todos' || t.category === activeCategory;
+    const ms = !searchTerm || t.name.toLowerCase().includes(searchTerm) || t.category.toLowerCase().includes(searchTerm) || t.description.toLowerCase().includes(searchTerm);
+    return mc && ms;
+  });
+  document.getElementById('catalogCount').textContent = list.length + ' HERRAMIENTAS';
+  if (!list.length) { grid.innerHTML = '<div class="empty-state">NO SE ENCONTRARON HERRAMIENTAS</div>'; return; }
+  list.forEach(t => { grid.appendChild(makeCard(t)); cardObserver.observe(document.getElementById('c3d_'+t.id)); });
+}
+
+function renderCatButtons() {
+  const wrap = document.getElementById('catButtons'); wrap.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat === activeCategory ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => { activeCategory = cat; renderCatButtons(); renderCatalog(); };
+    wrap.appendChild(btn);
+  });
+}
+
+let modalRenderer  = null;
+let modalAnimFrame = null;
+let modalControls  = null;
+
+function openModalViewer(container, modelPath) {
+  destroyModalViewer();
+  const loaderEl = document.getElementById('modalLoader');
+
+  if (!WEBGL_OK) { showPlaceholder(container); return; }
+
+  const w = container.clientWidth  || 500;
+  const h = container.clientHeight || 400;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      antialias: !IS_MOBILE,
+      powerPreference: IS_MOBILE ? 'low-power' : 'high-performance',
+      failIfMajorPerformanceCaveat: false
+    });
+  } catch(e) { showPlaceholder(container); return; }
+
+  try {
+    renderer.setPixelRatio(IS_MOBILE ? 1 : Math.min(devicePixelRatio, 2));
+    renderer.setSize(w, h);
+    renderer.outputEncoding          = THREE.sRGBEncoding;
+    renderer.physicallyCorrectLights = !IS_MOBILE;
+    renderer.toneMapping             = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure     = 1.4;
+    renderer.shadowMap.enabled       = !IS_MOBILE;
+    renderer.shadowMap.type          = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+    modalRenderer = renderer;
+
+    const scene = new THREE.Scene();
+    scene.background = SHARED_BG;
+    const camera = new THREE.PerspectiveCamera(45, w/h, 0.01, 1000);
+    camera.position.set(3, 2, 4);
+
+    if (IS_MOBILE) {
+      scene.add(new THREE.AmbientLight(0xffffff, 2));
+      const d = new THREE.DirectionalLight(0xfff0e0, 3);
+      d.position.set(5,8,5); scene.add(d);
+    } else {
+      const key = new THREE.DirectionalLight(0xfff8f0, 800);
+      key.position.set(6,10,5); key.castShadow = true;
+      key.shadow.mapSize.width = key.shadow.mapSize.height = 2048;
+      key.shadow.camera.near = .1; key.shadow.camera.far = 50; key.shadow.bias = -.001;
+      scene.add(key);
+      const fill = new THREE.DirectionalLight(0xb0d0ff,300); fill.position.set(-6,3,5); scene.add(fill);
+      const rim  = new THREE.DirectionalLight(0xff7722,600); rim.position.set(1,5,-7);  scene.add(rim);
+      const sub  = new THREE.DirectionalLight(0xffffff,150); sub.position.set(0,-5,3);  scene.add(sub);
+      scene.add(new THREE.HemisphereLight(0x334466,0x221100,80));
+    }
+
+    const grid = new THREE.GridHelper(12,24,0x1e3048,0x111e2a);
+    grid.material.opacity=.6; grid.material.transparent=true; grid.position.y=-1.2; scene.add(grid);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping=true; controls.dampingFactor=.07; controls.enablePan=false;
+    controls.minDistance=.5; controls.maxDistance=20;
+    controls.autoRotate=true; controls.autoRotateSpeed=1.5;
+    controls.target.set(0,0,0);
+    modalControls = controls;
+
+    const addToScene = (gltf) => {
+      if (loaderEl) loaderEl.style.display='none';
+      scene.add(prepareModel(gltf, !IS_MOBILE));
+      controls.update();
+    };
+
+    if (modelCache.has(modelPath)) {
+      addToScene(modelCache.get(modelPath));
+    } else {
+      if (loaderEl) { loaderEl.style.display='flex'; loaderEl.textContent='CARGANDO MODELO...'; }
+      loadModel(modelPath, xhr => {
+        if (loaderEl && xhr.total) loaderEl.textContent = 'CARGANDO ' + Math.round(xhr.loaded/xhr.total*100) + '%';
+      }).then(addToScene).catch(() => {
+        if (loaderEl) { loaderEl.style.display='flex'; loaderEl.textContent='ERROR AL CARGAR'; }
+      });
+    }
+
+    const loop = () => { modalAnimFrame=requestAnimationFrame(loop); controls.update(); renderer.render(scene,camera); };
+    loop();
+
+  } catch(e) {
+    if (renderer) try { renderer.dispose(); } catch(_) {}
+    showPlaceholder(container);
+  }
+}
+
+function destroyModalViewer() {
+  if (modalAnimFrame) { cancelAnimationFrame(modalAnimFrame); modalAnimFrame=null; }
+  if (modalControls)  { modalControls.dispose(); modalControls=null; }
+  if (modalRenderer)  { modalRenderer.dispose(); modalRenderer=null; }
+  const pane = document.getElementById('modal3d');
+  ['canvas','.card-placeholder'].forEach(sel => { const el=pane.querySelector(sel); if(el) el.remove(); });
+}
+
+function openModal(id) {
+  const tool = tools.find(t => t.id == id);
+  if (!tool) return;
+  document.getElementById('modalCat').textContent      = tool.category;
+  document.getElementById('modalCat').style.background = 'rgba(255,255,255,0.1)';
+  document.getElementById('modalName').textContent     = tool.name;
+  document.getElementById('modalDesc').textContent     = tool.description;
+  document.getElementById('modalDivBar').style.cssText = 'width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,0.3)';
+  document.getElementById('modalCornerH').style.background = 'rgba(255,255,255,0.3)';
+  document.getElementById('modalCornerV').style.background = 'rgba(255,255,255,0.3)';
+  document.getElementById('modalSpecs').innerHTML = [
+    ['CATEGORÍA',tool.category],['ARCHIVO',tool.modelPath.split('/').pop()],
+    ['ID REF.',tool.id],['ESTADO','Disponible']
+  ].map(([k,v])=>`<div><div class="spec-key">${k}</div><div class="spec-val">${v}</div></div>`).join('');
+  const dlBtn = document.getElementById('modalDownloadBtn');
+  dlBtn.href = tool.modelPath; dlBtn.download = tool.modelPath.split('/').pop();
+  openModalViewer(document.getElementById('modal3d'), tool.modelPath);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  destroyModalViewer();
+}
+
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => { if(e.target===document.getElementById('modalOverlay')) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+document.getElementById('searchInput').addEventListener('input', e => { searchTerm=e.target.value.toLowerCase().trim(); renderCatalog(); });
+
+fetch('../php/get_tools.php?v=' + Date.now())
+  .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .then(rawTools => {
+    if (!Array.isArray(rawTools)||!rawTools.length) {
+      document.getElementById('catalogGrid').innerHTML='<div class="empty-state">NO HAY HERRAMIENTAS EN LA BASE DE DATOS</div>'; return;
+    }
+    tools = rawTools.map(t => ({
+      id: t.id, name: t.nombre, category: t.categoria, description: t.descripcion,
+      modelPath: MODELS_BASE + t.model_path.split('/').pop(),
+      color: t.color||'#e8e8e8', featured: t.destacado==1||t.destacado===true
+    }));
+    renderHero(); renderFeatured(); renderCatButtons(); renderCatalog();
+  })
+  .catch(err => {
+    document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ERROR AL CARGAR — '+err.message+'</div>';
+  });
+</script>
+
+
+<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/03/12/03/20260312032701-NCLELRV5.js" defer></script>
+</body>
+</html>

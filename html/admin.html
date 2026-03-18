@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin — Smart Machining</title>
+    <link rel="stylesheet" href="../style/admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+            <div class="sb-brand">
+                <span class="sb-logo">SM</span>
+                <div>
+                    <p class="sb-name">SmartMachining</p>
+                    <p class="sb-role">Administrador</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sb-nav">
+            <p class="sb-label">GENERAL</p>
+            <a class="sb-link active" data-section="dashboard" onclick="nav('dashboard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Dashboard
+            </a>
+
+            <p class="sb-label">CATÁLOGO</p>
+            <a class="sb-link" data-section="herramientas" onclick="nav('herramientas')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                Herramientas
+            </a>
+            <a class="sb-link" data-section="modelados" onclick="nav('modelados')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                Modelados 3D
+            </a>
+
+            <p class="sb-label">SISTEMA</p>
+            <a class="sb-link" href="../index.html" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Ver Sitio Web
+            </a>
+        </nav>
+
+        <div class="sb-foot">
+            <button class="sb-logout" onclick="logout()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- ====== MAIN ====== -->
+    <main class="admin-main">
+
+        <!-- Top bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <div>
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="page-sub" class="page-sub">Bienvenido al panel de control</p>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <a href="../index.html" class="topbar-link" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Ver sitio
+                </a>
+            </div>
+        </header>
+
+        <!-- ===== DASHBOARD ===== -->
+        <section id="sec-dashboard" class="sec active">
+
+            <div class="stat-row">
+                <div class="stat-box">
+                    <div class="stat-ico" style="background:#1a1a1a">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <div>
+                        <p class="stat-label">Herramientas</p>
+                        <h2 class="stat-val" id="s-tools">0</h2>
+                        <span class="stat-note">en catálogo</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-ico" style="background:#2e7d32">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div>
+                        <p class="stat-label">Modelados 3D</p>
+                        <h2 class="stat-val" id="s-models">0</h2>
+                        <span class="stat-note">subidos</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-ico" style="background:#c9a961">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div>
+                        <p class="stat-label">Visitas IA</p>
+                        <h2 class="stat-val">3,847</h2>
+                        <span class="stat-note">este mes</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-ico" style="background:#7b1fa2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                        <p class="stat-label">Usuarios activos</p>
+                        <h2 class="stat-val">1,284</h2>
+                        <span class="stat-note">hoy</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-label" style="margin-bottom:14px">Acceso Rápido</p>
+            <div class="quick-grid">
+                <div class="quick-card" onclick="nav('herramientas');setTimeout(()=>switchTab('herramientas','agregar'),50)">
+                    <div class="qc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                    <h4>Nueva herramienta</h4>
+                    <p>Agregar al catálogo</p>
+                </div>
+                <div class="quick-card" onclick="nav('modelados');setTimeout(()=>switchTab('modelados','agregar'),50)">
+                    <div class="qc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                    <h4>Subir modelo 3D</h4>
+                    <p>Cargar .glb / .obj</p>
+                </div>
+                <div class="quick-card" href="../index.html">
+                    <div class="qc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                    <h4>Ver catálogo</h4>
+                    <p>Página pública</p>
+                </div>
+            </div>
+
+            <!-- Últimas herramientas agregadas -->
+            <p class="section-label" style="margin:28px 0 14px">Últimas herramientas agregadas</p>
+            <div class="mini-table-wrap">
+                <table class="mini-table" id="dash-recent">
+                    <thead><tr><th>Nombre</th><th>Categoría</th><th>Fecha</th><th>Modelo 3D</th></tr></thead>
+                    <tbody id="recent-tbody">
+                        <tr><td colspan="4" class="empty-td-simple">Sin herramientas aún</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- ===== HERRAMIENTAS ===== -->
+        <section id="sec-herramientas" class="sec">
+
+            <div class="tabs">
+                <button class="tab active" id="tab-h-lista" onclick="switchTab('herramientas','lista')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Lista
+                </button>
+                <button class="tab" id="tab-h-agregar" onclick="switchTab('herramientas','agregar')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Agregar herramienta
+                </button>
+            </div>
+
+            <!-- TAB LISTA -->
+            <div class="tab-panel active" id="panel-h-lista">
+                <div class="filterbar">
+                    <input class="filterbar-input" type="text" id="h-search" placeholder="🔍 Buscar herramienta..." oninput="renderHerramientasTable()">
+                    <select class="filterbar-select" id="h-cat-filter" onchange="renderHerramientasTable()">
+                        <option value="">Todas las categorías</option>
+                        <option value="fresado">Fresado</option>
+                        <option value="torneado">Torneado</option>
+                        <option value="taladrado">Taladrado</option>
+                        <option value="roscado">Roscado</option>
+                        <option value="medicion">Medición</option>
+                        <option value="corte">Corte</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Herramienta</th>
+                                <th>Categoría</th>
+                                <th>Material</th>
+                                <th>Descripción</th>
+                                <th>Modelo 3D</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="h-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB AGREGAR -->
+            <div class="tab-panel" id="panel-h-agregar">
+                <div class="form-card">
+                    <div class="form-card-head">
+                        <div class="fc-ico" style="background:#1a1a1a">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        </div>
+                        <div>
+                            <h3 id="h-form-title">Agregar nueva herramienta</h3>
+                            <p>Los datos se guardarán y aparecerán en el catálogo público.</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="h-edit-id">
+
+                    <p class="form-sec-label">Información general</p>
+                    <div class="form-row-2">
+                        <div class="field">
+                            <label>Nombre <span class="req">*</span></label>
+                            <input type="text" id="h-nombre" placeholder="Ej: Fresa de Carburo Ø12mm" required>
+                        </div>
+                        <div class="field">
+                            <label>Categoría <span class="req">*</span></label>
+                            <select id="h-categoria" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="fresado">Fresado</option>
+                                <option value="torneado">Torneado</option>
+                                <option value="taladrado">Taladrado</option>
+                                <option value="roscado">Roscado</option>
+                                <option value="medicion">Medición</option>
+                                <option value="corte">Corte</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="field">
+                            <label>Material</label>
+                            <input type="text" id="h-material" placeholder="Ej: Carburo, HSS, Cermet...">
+                        </div>
+                        <div class="field">
+                            <label>Diámetro / Medida</label>
+                            <input type="text" id="h-diametro" placeholder="Ej: Ø12mm, M10, N/A">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Descripción <span class="req">*</span></label>
+                        <textarea id="h-descripcion" rows="4" placeholder="Describe usos, características y especificaciones técnicas..." required></textarea>
+                    </div>
+
+                    <p class="form-sec-label">Archivos</p>
+                    <div class="form-row-2">
+                        <div class="field">
+                            <label>Imagen de vista previa</label>
+                            <div class="dropzone" id="dz-h-img" onclick="document.getElementById('h-imagen').click()"
+                                ondragover="dzOver(event)" ondragleave="dzLeave(event,'dz-h-img')"
+                                ondrop="dzDrop(event,'h-imagen','dz-h-img','prev-h-img',true)">
+                                <div class="dz-icon dz-icon-img">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                </div>
+                                <p class="dz-main">Imagen de la herramienta</p>
+                                <p class="dz-sub">JPG · PNG · WEBP</p>
+                                <div id="prev-h-img"></div>
+                            </div>
+                            <input type="file" id="h-imagen" accept="image/*" style="display:none" onchange="dzPreviewImg(this,'prev-h-img','dz-h-img')">
+                        </div>
+                        <div class="field">
+                            <label>Archivo 3D del modelo</label>
+                            <div class="dropzone" id="dz-h-3d" onclick="document.getElementById('h-modelo').click()"
+                                ondragover="dzOver(event)" ondragleave="dzLeave(event,'dz-h-3d')"
+                                ondrop="dzDrop(event,'h-modelo','dz-h-3d','prev-h-3d',false)">
+                                <div class="dz-icon dz-icon-3d">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                </div>
+                                <p class="dz-main">Archivo 3D</p>
+                                <p class="dz-sub">.glb · .obj · .stl · .fbx</p>
+                                <div id="prev-h-3d"></div>
+                            </div>
+                            <input type="file" id="h-modelo" accept=".glb,.obj,.stl,.fbx" style="display:none" onchange="dzPreviewFile(this,'prev-h-3d','dz-h-3d')">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn-ghost" type="button" onclick="cancelEdit('herramientas')">Cancelar</button>
+                        <button class="btn-primary" type="button" onclick="saveHerramienta()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            Guardar herramienta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MODELADOS 3D ===== -->
+        <section id="sec-modelados" class="sec">
+
+            <div class="tabs">
+                <button class="tab active" id="tab-m-lista" onclick="switchTab('modelados','lista')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Galería
+                </button>
+                <button class="tab" id="tab-m-agregar" onclick="switchTab('modelados','agregar')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Subir modelado
+                </button>
+            </div>
+
+            <!-- TAB GALERÍA -->
+            <div class="tab-panel active" id="panel-m-lista">
+                <div class="models-grid" id="m-grid">
+                    <div class="empty-card" id="m-empty">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        <h4>Sin modelados aún</h4>
+                        <p>Sube tu primer modelo 3D</p>
+                        <button class="btn-primary" onclick="switchTab('modelados','agregar')">+ Subir modelo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB SUBIR -->
+            <div class="tab-panel" id="panel-m-agregar">
+                <div class="form-card">
+                    <div class="form-card-head">
+                        <div class="fc-ico" style="background:#2e7d32">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div>
+                            <h3>Subir modelado 3D</h3>
+                            <p>El modelo se mostrará en el catálogo y en realidad aumentada.</p>
+                        </div>
+                    </div>
+
+                    <p class="form-sec-label">Información</p>
+                    <div class="form-row-2">
+                        <div class="field">
+                            <label>Nombre <span class="req">*</span></label>
+                            <input type="text" id="m-nombre" placeholder="Ej: Fresa CNC Ø12mm" required>
+                        </div>
+                        <div class="field">
+                            <label>Categoría <span class="req">*</span></label>
+                            <select id="m-categoria" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="fresado">Fresado</option>
+                                <option value="torneado">Torneado</option>
+                                <option value="taladrado">Taladrado</option>
+                                <option value="roscado">Roscado</option>
+                                <option value="medicion">Medición</option>
+                                <option value="maquina-cnc">Máquina CNC</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Descripción <span class="req">*</span></label>
+                        <textarea id="m-descripcion" rows="3" placeholder="Describe el modelado y su uso en AR..." required></textarea>
+                    </div>
+
+                    <p class="form-sec-label">Archivos</p>
+                    <div class="form-row-2">
+                        <div class="field">
+                            <label>Archivo 3D <span class="req">*</span></label>
+                            <div class="dropzone dropzone-tall" id="dz-m-3d" onclick="document.getElementById('m-modelo').click()"
+                                ondragover="dzOver(event)" ondragleave="dzLeave(event,'dz-m-3d')"
+                                ondrop="dzDrop(event,'m-modelo','dz-m-3d','prev-m-3d',false)">
+                                <div class="dz-icon dz-icon-3d">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                </div>
+                                <p class="dz-main">Arrastra o haz clic</p>
+                                <p class="dz-sub">.glb · .obj · .stl · .fbx</p>
+                                <div id="prev-m-3d"></div>
+                            </div>
+                            <input type="file" id="m-modelo" accept=".glb,.obj,.stl,.fbx" style="display:none" onchange="dzPreviewFile(this,'prev-m-3d','dz-m-3d')" required>
+                        </div>
+                        <div class="field">
+                            <label>Miniatura</label>
+                            <div class="dropzone dropzone-tall" id="dz-m-img" onclick="document.getElementById('m-thumb').click()"
+                                ondragover="dzOver(event)" ondragleave="dzLeave(event,'dz-m-img')"
+                                ondrop="dzDrop(event,'m-thumb','dz-m-img','prev-m-img',true)">
+                                <div class="dz-icon dz-icon-img">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                </div>
+                                <p class="dz-main">Imagen miniatura</p>
+                                <p class="dz-sub">JPG · PNG · WEBP</p>
+                                <div id="prev-m-img"></div>
+                            </div>
+                            <input type="file" id="m-thumb" accept="image/*" style="display:none" onchange="dzPreviewImg(this,'prev-m-img','dz-m-img')">
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="field">
+                            <label>Escala de visualización</label>
+                            <select id="m-escala">
+                                <option value="1:1">1:1 — Tamaño real</option>
+                                <option value="1:2">1:2</option>
+                                <option value="2:1">2:1 — Ampliado</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Disponible en AR</label>
+                            <select id="m-ar">
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn-ghost" onclick="switchTab('modelados','lista')">Cancelar</button>
+                        <button class="btn-primary" onclick="saveModelado()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            Publicar modelado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>
